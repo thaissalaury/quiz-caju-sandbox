@@ -320,8 +320,8 @@ function mostrarFeedback(acertou, pontosGanhos, explicacao) {
 // Senão → mostrarResultado().
 function proximaPergunta() {
     estado.indiceAtual++ 
-    // consoke.log(estado.indiceAtual)
-    if (estado.indiceAtual <   estado.perguntasJogo.length){
+    console.log(estado.indiceAtual)
+    if (estado.indiceAtual < estado.perguntasJogo.length){
         mostrarTela("questao")
         mostrarPergunta()
     }else {
@@ -335,10 +335,23 @@ els.btnProxima.addEventListener('click', proximaPergunta)
 // Atualiza DOM da tela de resultado.
 // Chama mostrarTela("resultado").
 function mostrarResultado() {
-    let total = estado.perguntas.length
-    let aproveitamento = Math.round((estado.acerto/total) * 100)
+    let total = estado.perguntasJogo.length
+    let aproveitamento = Math.round((estado.acertos /total) * 100)
 
-    
+    let medalha = "😅"
+
+    if (aproveitamento >= 90){
+        medalha = "🏆"
+        medalha = "Incrível! Você domina o conteúdo!"
+    } else if (aproveitamento >= 70){
+        medalha = "🥈"
+        medalha = "Muito de bom! Esta no caminho certo, estude um pouco mais..."
+    } else if (aproveitamento >= 50){
+        medalha = "🥉"
+        medalha = "Bom, revise e tente novamente!"
+    }
+    let mensagem = "Continue praticando, você vai melhorar!"
+
     mostrarTela("resultado")
 
 }
