@@ -164,7 +164,7 @@ function iniciarJogo() {
     }
 
     els.erroNickname.textContent = "";
-    estado.nickName = nome
+    estado.nickName = nome;
     estado.pontos = 0;
     estado.indiceAtual = 0;
     estado.acertos = 0;
@@ -319,15 +319,27 @@ function mostrarFeedback(acertou, pontosGanhos, explicacao) {
 // Se ainda há perguntas → mostrarPergunta().
 // Senão → mostrarResultado().
 function proximaPergunta() {
-
+    estado.indiceAtual++ 
+    // consoke.log(estado.indiceAtual)
+    if (estado.indiceAtual <   estado.perguntasJogo.length){
+        mostrarTela("questao")
+        mostrarPergunta()
+    }else {
+        mostrarResultado()
+    }
 }
 
-
+els.btnProxima.addEventListener('click', proximaPergunta)
 // mostrarResultado()
 // Calcula aproveitamento. Define medalha e mensagem.
 // Atualiza DOM da tela de resultado.
 // Chama mostrarTela("resultado").
 function mostrarResultado() {
+    let total = estado.perguntas.length
+    let aproveitamento = Math.round((estado.acerto/total) * 100)
+
+    
+    mostrarTela("resultado")
 
 }
 
