@@ -319,7 +319,7 @@ function mostrarFeedback(acertou, pontosGanhos, explicacao) {
 // Se ainda há perguntas → mostrarPergunta().
 // Senão → mostrarResultado().
 function proximaPergunta() {
-    estado.indiceAtual++ 
+    estado.indiceAtual++
     console.log(estado.indiceAtual)
     if (estado.indiceAtual < estado.perguntasJogo.length){
         mostrarTela("questao")
@@ -339,18 +339,27 @@ function mostrarResultado() {
     let aproveitamento = Math.round((estado.acertos /total) * 100)
 
     let medalha = "😅"
+    let mensagem = "Continue praticando, você vai melhorar!"
 
     if (aproveitamento >= 90){
         medalha = "🏆"
-        medalha = "Incrível! Você domina o conteúdo!"
+        mensagem = "Incrível! Você domina o conteúdo!"
     } else if (aproveitamento >= 70){
         medalha = "🥈"
-        medalha = "Muito de bom! Esta no caminho certo, estude um pouco mais..."
+        mensagem = "Muito de bom! Esta no caminho certo, estude um pouco mais..."
     } else if (aproveitamento >= 50){
         medalha = "🥉"
-        medalha = "Bom, revise e tente novamente!"
+        mensagem = "Bom, revise e tente novamente!"
     }
-    let mensagem = "Continue praticando, você vai melhorar!"
+    
+
+    els.resultadoMedalha.textContent = medalha 
+    els.resultadoNome.textContent = estado.nickName
+    els.scoreFinal.textContent = estado.pontos
+    els.statAcertos.textContent = estado.acertos
+    els.statErros.textContent = estado.erros
+    els.statPorcento.textContent = aproveitamento + "%"
+    els.resultadoMsg.textContent = mensagem 
 
     mostrarTela("resultado")
 
@@ -361,9 +370,11 @@ function mostrarResultado() {
 // Limpa o campo de nickname.
 // Chama mostrarTela("home").
 function reiniciarJogo() {
+    els.inputNickname.value = "";
+    mostrarTela("home");
 
 }
-
+els.btnJogarNovamente.addEventListener('click', reiniciarJogo)
 
 // ------------------------------------------------------------
 // 5. EVENTOS
@@ -383,3 +394,24 @@ function reiniciarJogo() {
 // Crie a função init() e chame ela aqui.
 // Ela deve preencher totalPerguntas e totalCategorias na home.
 // ------------------------------------------------------------
+function init(){
+    let categorias = []
+
+    for (let i = 0; i < perguntas.length; i++){
+        /*perguntas[i].categoria === HTML (indexOf vai retornar -1)então 
+        não existe ainda na nossas categorias distintas 
+        EXEMPLO: perguntas[7] */
+        if (categorias.indexOf(perguntas[i].categoria) === -1){
+            console.log("resultado da verificação" + categorias.indexOf(perguntas[i].categorias))
+            console.log(perguntas[i].categorias)
+            console.log(categorias)
+            categorias.push(perguntas[i].categoria)
+        } 
+    }
+    console.log(categorias)
+
+    els.totalPerguntas.textContent = perguntas.length
+    els.totalCategorias.textContent = categorias.length
+}
+
+init()
