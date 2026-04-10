@@ -250,6 +250,32 @@ function mostrarPergunta() {
 // Se timerSegundos <= 0: clearInterval e responder(-1).
 function iniciarTimer() {
 
+    let CIRCUNFERENCIA = 107
+
+    estado.timerSegundos = 20;
+    els.timerNum = 20;
+    els.timerArco.style.strokeDashoffset = 0; 
+    els.timerArco.style.stroke = "var(--laranja)";
+
+    clearInterval(estado.timerIntervalo)
+
+    estado.timerIntervalo = setInterval(function(){
+        estado.timerSegundos--
+        els.timerNum.textContent = estado.timerSegundos
+
+        let progresso = estado.timerSegundos / 20 
+        els.timerArco.style.strokeDashoffset = CIRCUNFERENCIA * (1 - progresso)
+
+        if (estado.timerSegundos <= 5){
+            els.timerArco.style.stroke = "var(--vermelho)"
+        } else if (estado.timerSegundos <= 10) {
+            els.timerArco.style.stroke = "var(--amarelo)"
+        }
+
+        
+
+    },1000) 
+
 }
 
 
