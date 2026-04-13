@@ -228,8 +228,18 @@ function normalizarPergunta(item, fonte, indice) {
 // até a resposta chegar, depois continua.
 
 async function buscarDeFonte(fonte, offsetId) {
-  
+  let resposta = await fetch(fonte.url)
+  let dados = await resposta.json()
 
+  if (dados.response_code !== 0) {
+    throw new Error("API retornou código " + dados.response_code)
+  }
+
+  console.log("os dados no question é:", dados)
+
+  return dados.results.map((item, i) => {
+    return normalizarPergunta(item, fonte, offsetId + i)
+  })
 }
 
 
