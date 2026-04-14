@@ -158,6 +158,7 @@ function decodificarBase64(str) {
   return atob(str)
 }
 
+
 // Embaralha um array e retorna uma cópia
 // (mesmo embaralhar que já existe no app.js)
 function embaralhar(array) {
@@ -231,11 +232,12 @@ async function buscarDeFonte(fonte, offsetId) {
   let resposta = await fetch(fonte.url)
   let dados = await resposta.json()
 
+  console.log(dados)
   if (dados.response_code !== 0) {
     throw new Error("API retornou código " + dados.response_code)
   }
 
-  console.log("os dados no question é:", dados)
+  //console.log("os dados no question é:", dados)
 
   return dados.results.map((item, i) => {
     return normalizarPergunta(item, fonte, offsetId + i)
@@ -249,7 +251,27 @@ async function buscarDeFonte(fonte, offsetId) {
 // Mais rápido do que fazer um por um.
 
 async function carregarPerguntas() {
+  // let fonte0 = await buscarDeFonte(FONTE[0], 0) // espera 400ms
+  // let fonte1 = await buscarDeFonte(FONTE[1], 5) // espera 400ms 
+  //let fonte2 = await buscarDeFonte(FONTE[2], 10) // espera 400ms
+  // // total: ~120ms
 
+  // tratamento de erro -> try = tentar ; catch = capturar 
+  try {
+    let promessas = FONTES.map (function(fonte, i){
+      return buscarDeFonte(fonte, i * 5)
+    })
+
+// -> uma lista de lista -> exemplo: [[primeira resposta], [segunta resposta]...]
+    let resultados = await Promise.all(promessas) 
+    let totalPerguntas = [].concat.apply([], resultados)
+  
+      return embarlhar (totalPerguntas)
+
+  } catch (error){
+    console.error("[QuizCaju] Falha ao carregar perguntas", error)
+    return perguntasFixas
+  }
 }
 
 
@@ -264,4 +286,4 @@ async function carregarPerguntas() {
 //   var perguntas = await window.bancoDePerguntasAsync
 //   → aí o array está pronto para usar
 
-// window.bancoDePerguntasAsync = carregarPerguntas()
+window.bancoDePerguntasAsync = carregarPerguntas()
