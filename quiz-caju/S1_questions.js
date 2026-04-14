@@ -287,3 +287,4 @@ async function carregarPerguntas() {
 //   → aí o array está pronto para usar
 
 window.bancoDePerguntasAsync = carregarPerguntas()
+//Janela para o banco de dados que receber o carregar perguntas 
