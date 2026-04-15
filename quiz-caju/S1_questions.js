@@ -215,7 +215,6 @@ function normalizarPergunta(item, fonte, indice) {
   categoria: fonte.categoria,
   pergunta: pergunta,
   opcoes: opcoes,
-  correta: indiceCorreta,
   explicacao: "Fonte: Open Trivia DB - " + decodificarBase64(item.category)
 }
 
