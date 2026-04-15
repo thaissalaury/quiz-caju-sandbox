@@ -211,12 +211,13 @@ function normalizarPergunta(item, fonte, indice) {
   let indiceCorreta = opcoes.indexOf (respostaCorreta)
 
   let respostaNormalizada = {
-    id: indice + 1, 
-    categoria: fonte.categoria,
-    pergunta: pergunta,
-    opcoes: opcoes,
-    explicacao: "Fonte: Open Trivia DB - " + decodificarBase64(item.category)
-  }
+  id: indice + 1, 
+  categoria: fonte.categoria,
+  pergunta: pergunta,
+  opcoes: opcoes,
+  correta: indiceCorreta,
+  explicacao: "Fonte: Open Trivia DB - " + decodificarBase64(item.category)
+}
 
   return respostaNormalizada
 
