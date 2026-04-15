@@ -172,7 +172,7 @@ async function iniciarJogo() {
     estado.erros = 0;
 
    let todasPerguntas   = await window.bancoDePerguntasAsync
-estado.perguntasJogo = embaralhar(todasPerguntas).slice(0, 15)
+estado.perguntasJogo = embaralhar(todasPerguntas)
     
     mostrarTela("questao")
     mostrarPergunta()
